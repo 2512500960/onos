@@ -296,6 +296,15 @@ public class ReactiveForwarding {
         } else {
             packetService.cancelPackets(selector.build(), PacketPriority.REACTIVE, appId);
         }
+        if (true){
+            TrafficSelector.Builder isis_selector = DefaultTrafficSelector.builder();
+            isis_selector.matchEthDst(MacAddress.valueOf("01:80:c2:00:00:14"));
+            packetService.requestPackets(isis_selector.build(), PacketPriority.REACTIVE, appId);
+            isis_selector.matchEthDst(MacAddress.valueOf("01:80:c2:00:00:15"));
+            packetService.requestPackets(isis_selector.build(), PacketPriority.REACTIVE, appId);
+            isis_selector.matchEthDst(MacAddress.valueOf("01:80:c2:00:00:16"));
+            packetService.requestPackets(isis_selector.build(), PacketPriority.REACTIVE, appId);
+        }
     }
 
     /**
@@ -497,7 +506,6 @@ public class ReactiveForwarding {
             if (ethPkt == null) {
                 return;
             }
-
             MacAddress macAddress = ethPkt.getSourceMAC();
             ReactiveForwardMetrics macMetrics = null;
             macMetrics = createCounter(macAddress);
